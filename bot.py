@@ -26,5 +26,5 @@ async def main():
 async def on_member_join(member):
     channel - member.guild.system_channel
     if channel is not None:
-        welcome_message = f"welcome {member.mention} to Flocks official development server!"
+        welcome_message = f"welcome {member.mention} to Flocks official development server! We are glad you could make it! Make sure to check out https://discord.com/channels/1256396414658023535/1256396415186239606 for rules and info!"
         await channel.send(welcome_message)
