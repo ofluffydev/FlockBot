@@ -61,8 +61,10 @@ class BotCommands(Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def stats(self, ctx: Context):
-        await print_stats(ctx)
+    async def stats(self, ctx):
+        await ctx.send('Getting bot stats...')
+        embed = await print_stats(ctx)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def bugatti(self, ctx: Context):
