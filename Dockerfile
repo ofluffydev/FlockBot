@@ -10,8 +10,8 @@ COPY . /bot
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Print debug information and run bot.py
-CMD echo "Python version:" && \
-    python --version && \
-    # Run the bot
-    python bot.py
+# Install the neofetch package
+RUN apt-get update && apt-get install -y neofetch
+
+# Run the bot, printing any output to the container's logs
+CMD ["python", "main.py"]

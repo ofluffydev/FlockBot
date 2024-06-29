@@ -18,7 +18,7 @@ if DISCORD_APPLICATION_ID is None:
 client = Client(intents=intents, application_id=DISCORD_APPLICATION_ID)
 
 # Create bot
-bot = Bot(command_prefix='/', intents=intents)
+bot = Bot(command_prefix='!', intents=intents)
 
 tree = bot.tree
 
@@ -50,6 +50,8 @@ async def on_ready():
         print(f'Error while syncing tree: {e}')
     else:
         print('Tree synced')
+
+    print('Bot is ready')
 
 
 async def main():

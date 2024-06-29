@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run on Server" type="docker-deploy" factoryName="dockerfile" server-name="Ubuntu Server">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="containerName" value="FlockBot" />
+        <option name="sourceFilePath" value="Dockerfile" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

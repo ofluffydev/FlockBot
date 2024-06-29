@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord.ext.commands import Context, Cog
 
 from github import get_github_repo
+from neo_fetch import run_neofetch
 from utility import print_stats
 
 
@@ -75,25 +76,35 @@ class BotCommands(Cog):
         """
         await ctx.send('Playing Bugatti sound effect...')
 
-    @commands.Cog.listener()
-    async def on_message(self, ctx):
-        if ctx.author == self.bot.user:
-            return
+    # Command that sends the result of the 'neofetch' command
+    @commands.command()
+    async def neofetch(self, ctx: Context):
+        message = run_neofetch()
+        try:
+            await ctx.send(message)
+        except Exception as e:
+            await ctx.send(f'Error while sending neofetch result: {e}')
 
-        # Process commands first, no need for any additional code since this happens automatically
 
-        if not ctx.content.startswith(self.bot.command_prefix) and ctx.author is not self.bot.user:
-            message_str = ctx.content.lower()
-            if message_str == 'hello' or message_str == 'hi':
-                await ctx.channel.send('Hello!')
-            elif message_str == 'meow':
-                await ctx.channel.send('meow')
-            elif message_str == 'woof':
-                await ctx.channel.send('woof')
-            elif 'furry' in message_str:
-                await ctx.channel.send('uwu')
-            elif 'Fluffy' in message_str:
-                await ctx.channel.send('Fluffy? What a bitch!')
+@commands.Cog.listener()
+async def on_message(self, ctx):
+    if ctx.author == self.bot.user:
+        return
+
+    # Process commands first, no need for any additional code since this happens automatically
+
+    if not ctx.content.startswith(self.bot.command_prefix) and ctx.author is not self.bot.user:
+        message_str = ctx.content.lower()
+        if message_str == 'hello' or message_str == 'hi':
+            await ctx.channel.send('Hello!')
+        elif message_str == 'meow':
+            await ctx.channel.send('meow')
+        elif message_str == 'woof':
+            await ctx.channel.send('woof')
+        elif 'furry' in message_str:
+            await ctx.channel.send('uwu')
+        elif 'Fluffy' in message_str:
+            await ctx.channel.send('Fluffy? What a bitch!')
 
 
 async def setup(bot):
