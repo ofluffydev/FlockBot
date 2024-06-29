@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.ext.commands import Context, Cog
 
 from github import get_github_repo
-from sound import bugatti
+from utility import print_stats
 
 
 class BotCommands(Cog):
@@ -61,6 +61,10 @@ class BotCommands(Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    async def stats(self, ctx: Context):
+        await print_stats(ctx)
+
+    @commands.command()
     async def bugatti(self, ctx: Context):
         """
         Play the Bugatti sound effect in the voice channel of the user who called the command
@@ -68,7 +72,6 @@ class BotCommands(Cog):
         :return: None
         """
         await ctx.send('Playing Bugatti sound effect...')
-        await bugatti(ctx)
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
@@ -87,8 +90,6 @@ class BotCommands(Cog):
                 await ctx.channel.send('woof')
             elif 'furry' in message_str:
                 await ctx.channel.send('uwu')
-            elif 'bugatti' in message_str:
-                await bugatti(ctx)
 
 
 async def setup(bot):
