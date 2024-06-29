@@ -1,24 +1,59 @@
 from os import getenv
 
 import discord
-from discord.ext import commands
+from discord import Client
+from discord.ext.commands import Bot
 from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+# Create client
+DISCORD_APPLICATION_ID = getenv('DISCORD_APPLICATION_ID')
+if DISCORD_APPLICATION_ID is None:
+    raise ValueError('DISCORD_APPLICATION_ID is not set')
+client = Client(intents=intents, application_id=DISCORD_APPLICATION_ID)
+
+# Create bot
+bot = Bot(command_prefix='/', intents=intents)
+
+tree = bot.tree
+
+
+@tree.command(
+    name="commandname",
+    description="My first application Command",
+)
+async def first_command(interaction):
+    await interaction.response.send_message("Hello!")
 
 
 @bot.event
 async def on_ready():
+    # Wait until the bot is fully connected to Discord
+    await bot.wait_until_ready()
+
     print(f'{bot.user} has connected to Discord!')
-    await bot.load_extension('commands')
+    try:
+        print('Loading commands')
+        await bot.load_extension('commands')
+    except Exception as e:
+        print(f'Error while loading commands: {e}')
+
+    print('About to sync tree')
+    try:
+        await bot.tree.sync()
+    except Exception as e:
+        print(f'Error while syncing tree: {e}')
+    else:
+        print('Tree synced')
 
 
 async def main():
     async with bot:
-        load_dotenv()
         await bot.start(getenv('DISCORD_BOT_TOKEN'))
 
 
