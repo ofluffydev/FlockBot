@@ -25,6 +25,7 @@ def get_github_social_card(owner, repo):
     else:
         return f"Error: Unable to fetch repository data. Status code: {response.status_code}"
 
+
 def get_github_repo(owner: str, repo: str) -> Embed:
     github_link = f'https://github.com/{owner}/{repo}'
     description = f'View our [GitHub Repository]({github_link})'

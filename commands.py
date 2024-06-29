@@ -60,7 +60,6 @@ class BotCommands(Cog):
         embed = get_github_repo(repo_owner, repo_name)
         await ctx.send(embed=embed)
 
-
     @commands.command()
     async def bugatti(self, ctx: Context):
         """
