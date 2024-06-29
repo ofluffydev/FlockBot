@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord.ext.commands import Context, Cog
 
 from github import get_github_repo
+from sound import bugatti
 
 
 class BotCommands(Cog):
@@ -59,23 +60,36 @@ class BotCommands(Cog):
         embed = get_github_repo(repo_owner, repo_name)
         await ctx.send(embed=embed)
 
+
+    @commands.command()
+    async def bugatti(self, ctx: Context):
+        """
+        Play the Bugatti sound effect in the voice channel of the user who called the command
+        :param ctx: Context of the command
+        :return: None
+        """
+        await ctx.send('Playing Bugatti sound effect...')
+        await bugatti(ctx)
+
     @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.author == self.bot.user:
+    async def on_message(self, ctx):
+        if ctx.author == self.bot.user:
             return
 
         # Process commands first, no need for any additional code since this happens automatically
 
-        if not message.content.startswith(self.bot.command_prefix) and message.author != self.bot.user:
-            message_str = message.content.lower()
+        if not ctx.content.startswith(self.bot.command_prefix) and ctx.author is not self.bot.user:
+            message_str = ctx.content.lower()
             if message_str == 'hello' or message_str == 'hi':
-                await message.channel.send('Hello!')
+                await ctx.channel.send('Hello!')
             elif message_str == 'meow':
-                await message.channel.send('meow')
+                await ctx.channel.send('meow')
             elif message_str == 'woof':
-                await message.channel.send('woof')
+                await ctx.channel.send('woof')
             elif 'furry' in message_str:
-                await message.channel.send('uwu')
+                await ctx.channel.send('uwu')
+            elif 'bugatti' in message_str:
+                await bugatti(ctx)
 
 
 async def setup(bot):
