@@ -92,8 +92,8 @@ class BotCommands(Cog):
                 await ctx.channel.send('woof')
             elif 'furry' in message_str:
                 await ctx.channel.send('uwu')
-            elif 'jack' in message_str:
-                await ctx.channel.send('Jack? What a disappointment')
+            elif 'Fluffy' in message_str:
+                await ctx.channel.send('Fluffy? What a bitch!')
 
 
 async def setup(bot):
