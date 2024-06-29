@@ -21,4 +21,10 @@ async def main():
     async with bot:
         load_dotenv()
         DISCORD_BOT_TOKEN = getenv('DISCORD_BOT_TOKEN')
-        await bot.start(DISCORD_BOT_TOKEN)
+        
+@bot.event
+async def on_member_join(member):
+    channel - member.guild.system_channel
+    if channel is not None:
+        welcome_message = f"welcome {member.mention} to Flocks official development server!"
+        await channel.send(welcome_message)
